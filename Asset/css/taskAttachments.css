@@ -1,0 +1,32 @@
+.add-attachements-list {
+	list-style:none;
+	margin-top:  2rem;
+}
+.add-attachements-list__item {
+	margin-top: 0.5rem;
+}
+.add-attachements-list__item:first-child {
+	margin-top: 0;
+}
+
+.filename-container {
+	margin-top: 0.8rem;
+}
+
+.m-r {
+	margin-right: 0.2rem;
+}
+
+.m-t-1 {
+	margin-top: 1rem;
+}
+
+.btn-remove {
+	background-color: transparent !important;
+	float: left;
+	margin-right: 0.5rem;
+}
+
+.is-hidden {
+	visibility: hidden;
+}
