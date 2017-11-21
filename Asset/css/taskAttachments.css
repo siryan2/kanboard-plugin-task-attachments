@@ -13,20 +13,9 @@
 	margin-top: 0.8rem;
 }
 
-.m-r {
-	margin-right: 0.2rem;
-}
-
-.m-t-1 {
-	margin-top: 1rem;
-}
-
 .btn-remove {
 	background-color: transparent !important;
 	float: left;
 	margin-right: 0.5rem;
 }
 
-.is-hidden {
-	visibility: hidden;
-}

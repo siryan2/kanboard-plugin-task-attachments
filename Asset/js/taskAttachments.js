@@ -1,8 +1,9 @@
 /**
  * Handle add/remove attachments
  *
- * @package Kanboard\Plugins\TaskAttachments
- * @author Yannick Herzog <info@hit-services.net>
+ * @package 	Kanboard\Plugins\TaskAttachments
+ * @author 		Yannick Herzog <info@hit-services.net>
+ * @modified	2017-11-21
  */
 
 (function($) {
@@ -12,7 +13,7 @@
 		'fileInput': '.js-input-file',
 		'fileInputId': '#inputFile',
 		'removeFile': '.js-btn-remove-file',
-		'toggleClass': 'is-hidden'
+		'toggleClass': 'invisible'
 	};
 
 	function init() {

@@ -4,11 +4,11 @@
 			<input type="file" name="files[]" id="inputFile" class="js-input-file" style="display:none;">
 
 			<label for="inputFile" class="btn btn-blue">
-				<i class="fa fa-file m-r"></i>
+				<i class="fa fa-file mr-1"></i>
 				<?= t('Attach a document') ?>
 			</label>
 
-			<div class="filename-container js-filename-container is-hidden">
+			<div class="filename-container js-filename-container invisible">
 				<button type="button" class="btn btn-remove js-btn-remove-file"><i class="fa fa-close"></i></button>
 
 				<span class="js-filename"></span>
