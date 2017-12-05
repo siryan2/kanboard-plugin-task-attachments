@@ -90,7 +90,7 @@ class MeikoTaskFileModel extends TaskFileModel {
      * @param  bool    $creationEvent
      * @throws Exception
      */
-    public function uploadFile($id, array $file, $creationEvent)
+    public function uploadFile($id, array $file, $creationEvent = true)
     {
         if ($file['error'] == UPLOAD_ERR_OK && $file['size'] > 0) {
             $destination_filename = $this->generatePath($id, $file['name']);
