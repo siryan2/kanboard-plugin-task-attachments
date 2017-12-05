@@ -37,7 +37,7 @@ class MeikoTaskCreationModel extends TaskCreationModel {
 		 * Speichere Anhang
 		 */
 		if($hasAttachment) {
-			$result = $this->taskFileModel->uploadFiles($task_id, $files);
+			$result = $this->taskFileModel->uploadFiles($task_id, $files, false);
 
 			if (! $result) {
                 $this->flash->failure(t('Unable to upload files, check the permissions of your data folder.'));
