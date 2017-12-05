@@ -12,45 +12,37 @@ use Kanboard\Controller\TaskCreationController;
  */
 class MeikoTaskCreationController extends TaskCreationController {
 
-	/**
-     * Validate and save a new task
+    /**
+     * Executed after the task is saved
      *
-     * @access public
+     * @param array   $project
+     * @param array   $values
+     * @param integer $task_id
      */
-    public function save() {
-    	$this->response->withStatusCode(201)->json(array('test' => 1));
+    protected function afterSave(array $project, array &$values, $task_id) {
+        $hasAttachment = false;
 
-        $project = $this->getProject();
-        $values = $this->request->getValues();
-        $values['project_id'] = $project['id'];
+        if(isset($_FILES['files'])) {
+            $files = $_FILES['files'];
+            $hasAttachment = true;
+        };
+        echo $hasAttachment;
+        print_r('afterSave');
+        exit;
 
-        list($valid, $errors) = $this->taskValidator->validateCreation($values);
-
-        if (! $valid) {
-            $this->flash->failure(t('Unable to create your task.'));
-            $this->show($values, $errors);
-        } else if (! $this->helper->projectRole->canCreateTaskInColumn($project['id'], $values['column_id'])) {
-            $this->flash->failure(t('You cannot create tasks in this column.'));
-            $this->response->redirect($this->helper->url->to('BoardViewController', 'show', array('project_id' => $project['id'])), true);
+        if (isset($values['duplicate_multiple_projects']) && $values['duplicate_multiple_projects'] == 1) {
+            $this->chooseProjects($project, $task_id);
+        } elseif (isset($values['another_task']) && $values['another_task'] == 1) {
+            $this->show(array(
+                'owner_id' => $values['owner_id'],
+                'color_id' => $values['color_id'],
+                'category_id' => isset($values['category_id']) ? $values['category_id'] : 0,
+                'column_id' => $values['column_id'],
+                'swimlane_id' => isset($values['swimlane_id']) ? $values['swimlane_id'] : 0,
+                'another_task' => 1,
+            ));
         } else {
-            $task_id = $this->taskCreationModel->create($values);
-
-			$files = $_FILES['files'];
-			print_r($files);
-			$result = $this->taskFileModel->uploadFiles($task_id, $files);
-
-			$this->response
-				->withStatusCode(201)
-				->json($result);
-
-			exit;
-            if ($task_id > 0) {
-                $this->flash->success(t('Task created successfully.'));
-                $this->afterSave($project, $values, $task_id);
-            } else {
-                $this->flash->failure(t('Unable to create this task.'));
-                $this->response->redirect($this->helper->url->to('BoardViewController', 'show', array('project_id' => $project['id'])), true);
-            }
+            $this->response->redirect($this->helper->url->to('BoardViewController', 'show', array('project_id' => $project['id'])), true);
         }
     }
 

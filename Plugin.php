@@ -6,6 +6,7 @@ use Kanboard\Core\Translator;
 use Kanboard\Core\Plugin\Base;
 use Kanboard\Plugin\TaskAttachments\Controller\MeikoTaskCreationController;
 use Kanboard\Plugin\TaskAttachments\Model\MeikoTaskCreationModel;
+use Kanboard\Plugin\TaskAttachments\Model\MeikoTaskFileModel;
 
 
 class Plugin extends Base
@@ -13,13 +14,14 @@ class Plugin extends Base
     public function initialize() {
         $container = $this->container;
 
+        $this->container['taskFileModel'] = $this->container->factory(function ($c) {
+            return new MeikoTaskFileModel($c);
+        });
+
         $this->container['taskCreationModel'] = $this->container->factory(function ($c) {
             return new MeikoTaskCreationModel($c);
         });
 
-        $this->container['taskCreationController'] = $this->container->factory(function ($c) {
-            return new MeikoTaskCreationController($c);
-        });
 
         $this->hook->on('template:layout:css', array('template' => 'plugins/TaskAttachments/Asset/css/taskAttachments.css'));
         $this->hook->on('template:layout:js', array('template' => 'plugins/TaskAttachments/Asset/js/taskAttachments.js'));
@@ -36,12 +38,13 @@ class Plugin extends Base
 
     public function getClasses() {
         return array(
-            'Plugin\TaskAttachments\Model' => array(
-                'MeikoTaskCreationModel',
-            ),
             'Plugin\TaskAttachments\Controller' => array(
                 'MeikoTaskCreationController',
-            )
+            ),
+            'Plugin\TaskAttachments\Model' => array(
+                'MeikoTaskCreationModel',
+                'MeikoTaskFileModel',
+            ),
         );
     }
 
@@ -58,7 +61,7 @@ class Plugin extends Base
     }
 
     public function getPluginVersion() {
-        return '0.2.0';
+        return '0.3.0';
     }
 
     public function getPluginHomepage() {
