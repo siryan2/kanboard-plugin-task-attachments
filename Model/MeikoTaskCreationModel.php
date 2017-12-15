@@ -22,8 +22,7 @@ class MeikoTaskCreationModel extends TaskCreationModel {
 	 */
 	public function create(array $values){
 		$hasAttachment = false;
-
-		if(isset($_FILES['files'])) {
+		if(!empty($_FILES['files']['name'][0])) {
 			$files = $_FILES['files'];
 			$hasAttachment = true;
 		};
