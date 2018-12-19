@@ -30,6 +30,9 @@ class Plugin extends Base
             'task_id' => $_GET['task_id'],
             'project_id' => $_GET['project_id'],
         ));
+
+        // Task details, sort attachments
+        $this->template->setTemplateOverride('task_file/files', 'TaskAttachments:task_file/files');
     }
 
     public function onStartup() {
