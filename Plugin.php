@@ -27,8 +27,8 @@ class Plugin extends Base
         $this->hook->on('template:layout:js', array('template' => 'plugins/TaskAttachments/Asset/js/taskAttachments.js'));
 
         $this->template->hook->attach('template:task:form:second-column', 'TaskAttachments:task/second-column', array(
-            'task_id' => $_GET['task_id'],
-            'project_id' => $_GET['project_id'],
+            'task_id' => isset($_GET['task_id']) ? $_GET['task_id'] : 0,
+            'project_id' => isset($_GET['project_id']) ? $_GET['project_id'] : 0,
         ));
 
         // Task details, sort attachments
@@ -64,7 +64,7 @@ class Plugin extends Base
     }
 
     public function getPluginVersion() {
-        return '0.4.0';
+        return '0.4.1';
     }
 
     public function getPluginHomepage() {
